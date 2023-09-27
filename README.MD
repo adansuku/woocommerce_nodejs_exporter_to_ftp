@@ -20,10 +20,10 @@ Set up your magical WooCommerce portal with your secret keys and FTP credentials
 
 **FTP Server Configuration with SSL**
     const ftpConfig = {
-        host: '82.98.168.228',
-       	port: 21,
-       	user: '******', // Your magical username
-       	password: '**************' // Your secret password	
+    host: '82.98.168.228',
+    port: 21,
+    user: '******', // Your magical username
+    password: '**************' // Your secret password	
     };
 
 ✨ Casting Spells
