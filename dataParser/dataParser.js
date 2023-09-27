@@ -7,36 +7,52 @@ function parsedOrders(data) {
 
 	data.forEach((element) => {
 		if (element['status'] !== "cancelled") {
-			const order = {
-				id: element.id,
-				order: element.number,
-				status: element['status'],
-				created_at: element['date_created_gmt'],
-				billing_name: element['billing'].first_name + " " + element['billing'].last_name,
+			const {
+				id,
+				number: order,
+				status,
+				date_created_gmt: created_at,
+				billing,
+				shipping,
+				shipping_total,
+				billing: { email },
+				tax_lines,
+				total,
+				payment_method,
+				payment_method_title,
+				customer_note
+			} = element;
+
+			const orderObj = {
+				id,
+				order,
+				status,
+				created_at,
+				billing_name: `${billing.first_name} ${billing.last_name}`,
 				billing_nif: element.meta_data[0].value,
-				billing_address: element['billing'].address_1 + " " + element['billing'].address_2,
-				billing_city: element['billing'].city,
-				billing_zip: element['billing'].postcode,
-				billing_province: element['billing'].state,
-				billing_country: element['billing'].country,
-				billing_phone: element['billing'].phone,
-				shipping_name: element['shipping'].first_name + " " + element['shipping'].last_name,
-				shipping_address: element['shipping'].address_1 + " " + element['shipping'].address_2,
-				shipping_city: element['shipping'].city,
-				shipping_zip: element['shipping'].postcode,
-				shippping_province: element['shipping'].state,
-				shipping_country: element['shipping'].country,
-				shipping_phone: element['shipping'].phone,
-				shipping_total: element.shipping_total,
-				email: element['billing'].email,
-				tax_subtotal: element['tax_lines'].tax_total,
-				order_total: element.total,
-				payment_method: element.payment_method,
-				payment_method_title: element.payment_method_title,
-				order_notas: element.customer_note
+				billing_address: `${billing.address_1} ${billing.address_2}`,
+				billing_city: billing.city,
+				billing_zip: billing.postcode,
+				billing_province: billing.state,
+				billing_country: billing.country,
+				billing_phone: billing.phone,
+				shipping_name: `${shipping.first_name} ${shipping.last_name}`,
+				shipping_address: `${shipping.address_1} ${shipping.address_2}`,
+				shipping_city: shipping.city,
+				shipping_zip: shipping.postcode,
+				shippping_province: shipping.state,
+				shipping_country: shipping.country,
+				shipping_phone: shipping.phone,
+				shipping_total,
+				email,
+				tax_subtotal: tax_lines.tax_total,
+				order_total: total,
+				payment_method,
+				payment_method_title,
+				order_notas: customer_note
 			};
 
-			parsedOrders.push(order);
+			parsedOrders.push(orderObj);
 		}
 	});
 
@@ -44,40 +60,27 @@ function parsedOrders(data) {
 }
 
 function parsedProducts(data) {
-	const parsedProducts = [];
-	var lineItems = mapData(data);
-
-	lineItems.forEach((element) => {
-		const product = {
-			id: element.id,
-			sku: element.sku,
-			order: element.order_id,
-			name: element.name,
-			product_id: element.product_id,
-			variation_id: element.variation_id,
-			quantity: element.quantity,
-			sale_price: element.sale_price,
-			price: element.price,
-			total: element.total,
-			total_tax: element.total_tax
-		};
-
-		parsedProducts.push(product);
-	});
-
-	return parsedProducts;
+	const lineItems = mapData(data);
+	return lineItems.map(element => ({
+		id: element.id,
+		sku: element.sku,
+		order: element.order_id,
+		name: element.name,
+		product_id: element.product_id,
+		variation_id: element.variation_id,
+		quantity: element.quantity,
+		sale_price: element.sale_price,
+		price: element.price,
+		total: element.total,
+		total_tax: element.total_tax
+	}));
 }
 
 function mapData(data) {
-	var mappedData = [];
-	const output = data.map(x => {
-		x['line_items'].forEach((e) => {
-			e.order_id = x.id;
-		});
-		mappedData.push(x['line_items']);
-	});
-
-	return mappedData.flat();
+	return data.map(x => {
+		const lineItems = x['line_items'].map(e => ({ ...e, order_id: x.id }));
+		return lineItems;
+	}).flat();
 }
 
 function exportOrders(data, csvName) {
@@ -85,11 +88,18 @@ function exportOrders(data, csvName) {
 		header: true,
 		delimiter: ';'
 	}, (err, output) => {
-		if (err) throw err;
-		console.log(csvName + "_" + dateName() + ".csv");
-		fs.writeFile(csvName + "_" + dateName() + ".csv", output, (err) => {
-			if (err) throw err;
-			console.log(csvName + "_" + dateName() + ' saved.');
+		if (err) {
+			console.error(`Error in stringify: ${err}`);
+			return;
+		}
+
+		const fileName = `${csvName}_${dateName()}.csv`;
+		fs.writeFile(fileName, output, (writeErr) => {
+			if (writeErr) {
+				console.error(`Error writing file: ${writeErr}`);
+				return;
+			}
+			console.log(`${fileName} saved.`);
 		});
 	});
 }
