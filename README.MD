@@ -1,4 +1,5 @@
 
+
 # 🌟 Custom WooCommerce Export to FTP Automation
 
 Welcome to the enchanting realm of WooCommerce Automation!
@@ -11,20 +12,26 @@ To unleash this magic upon your system, install the required spells:
 🧙‍♂️ Spell Configuration
 Set up your magical WooCommerce portal with your secret keys and FTP credentials. Guard these secrets with your wizarding life!
 
-    const WooCommerce = new WooCommerceRestApi({
-    url: 'https://mywebsite.com',
-    consumerKey: 'ck_**************', // Your consumer key
-    consumerSecret: 'cs_**************', // Your consumer secret
-    version: 'wc/v3'
-    });
+Woocommerce Keys
 
-**FTP Server Configuration with SSL**
-    const ftpConfig = {
-    host: '82.98.168.228',
-    port: 21,
-    user: '******', // Your magical username
-    password: '**************' // Your secret password	
-    };
+     const WooCommerce = new WooCommerceRestApi({
+        url: 'https://mywebsite.com',
+        consumerKey: 'ck_**************', // Your consumer key
+        consumerSecret: 'cs_**************', // Your consumer secret
+        version: 'wc/v3'
+        });
+
+
+FTP Server Configuration with SSL
+ 
+
+       const ftpConfig = {
+        host: '82.98.168.228',
+        port: 21,
+        user: '******', // Your magical username
+        password: '**************' // Your secret password	
+        };
+
 
 ✨ Casting Spells
 Run the script and witness the magic unfold! It retrieves orders, transforms them into CSV files, and sends them soaring to the FTP realm. 🎩🕊️
