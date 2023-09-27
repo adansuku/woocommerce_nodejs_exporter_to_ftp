@@ -6,8 +6,10 @@ Welcome to the enchanting realm of WooCommerce Automation!
 This spellbinding script sprinkles magic on your orders and sends them off to the mystical land of FTP. 🚀✨
 
 ## 📜 Installation
-To unleash this magic upon your system, install the required spells:
+To unleash this magic upon your system, install the required spells.:
 ```npm install```
+
+NODE VERSION TESTED: v16.20.0
 
 🧙‍♂️ Spell Configuration
 Set up your magical WooCommerce portal with your secret keys and FTP credentials. Guard these secrets with your wizarding life!
@@ -36,7 +38,7 @@ FTP Server Configuration with SSL
 ✨ Casting Spells
 Run the script and witness the magic unfold! It retrieves orders, transforms them into CSV files, and sends them soaring to the FTP realm. 🎩🕊️
  
-```node my_script.js```
+```node export_to_ftp.js```
 
 🚀 Celebrate the Magic
 As the console lights up with enchanting messages, celebrate your newfound powers in the world of automation!

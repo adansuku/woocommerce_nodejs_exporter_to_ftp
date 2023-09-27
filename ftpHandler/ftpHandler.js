@@ -1,7 +1,7 @@
 // ftpHandler.js
 const ftp = require('ftp');
-const { ftpConfig } = require('./config');
-const { dateName } = require('./dataParser');
+const { ftpConfig } = require('../config/config');
+const { dateName } = require('../dataParser/dataParser');
 const fs = require("fs");
 
 

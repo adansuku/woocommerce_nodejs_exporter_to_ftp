@@ -1,8 +1,8 @@
 // main.js
 require('dotenv').config();
-const { WooCommerce } = require('./config');
-const { parsedOrders, parsedProducts, exportOrders, mapData } = require('./dataParser');
-const { sendToFTP } = require('./ftpHandler');
+const { WooCommerce } = require('./config/config');
+const { parsedOrders, parsedProducts, exportOrders, mapData } = require('./dataParser/dataParser');
+const { sendToFTP } = require('./ftpHandler/ftpHandler');
 
 //Data Store
 let data = [];
