@@ -1,0 +1,31 @@
+{
+	"name": "wc-exporter",
+	"version": "1.0.0",
+	"description": "",
+	"main": "app.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"basic-ftp": "^5.0.3",
+		"csv": "^6.2.11",
+		"csv-generate": "^4.2.5",
+		"csv-writer": "^1.6.0",
+		"dotenv": "^16.3.1",
+		"fs": "^0.0.1-security",
+		"ftp": "^0.3.10",
+		"json2csv": "^6.0.0-alpha.2",
+		"jsonfile": "^4.0.0",
+		"node-csv": "^0.1.2",
+		"parse": "^4.1.0",
+		"stringify": "^5.2.0",
+		"woocommerce": "^2.4.0"
+	},
+	"devDependencies": {
+		"@woocommerce/woocommerce-rest-api": "^1.0.1",
+		"csv-parse": "^5.3.8",
+		"csvtojson": "^2.0.10"
+	}
+}
