@@ -26,7 +26,7 @@ FTP Server Configuration with SSL
  
 
        const ftpConfig = {
-        host: '82.98.168.228',
+        host: '000.000.000.000',
         port: 21,
         user: '******', // Your magical username
         password: '**************' // Your secret password	
